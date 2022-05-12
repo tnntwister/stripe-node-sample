@@ -2,12 +2,9 @@
 
 ## how to use 
 
-1. create a .env file, with two variables 
+1. replace stripe key placeholders with good ones
 
-```
-STRIPE_TEST_PK="pk_test_XXXXX"
-STRIPE_TEST_SK="sk_test_XXXXXXXXXX"
-```
+hint : search 'stripe(' in javascript 
 
 2. install npm dependancies 
 

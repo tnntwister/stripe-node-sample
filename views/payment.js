@@ -1,5 +1,4 @@
-const dotenv = require('dotenv').config();
-const stripe = Stripe(process.env.STRIPE_TEST_PK); 
+const stripe = Stripe('pk_test_xxxxxxxx'); 
 const elements = stripe.elements();
 const card = elements.create("card", { hidePostalCode: true });
 card.mount("#payment-card");
