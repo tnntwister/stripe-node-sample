@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              stripe1: '#83aaf2',
+            }
+          }
+        }
+      }
+    </script>
+    <title>Tests stripe</title>
+  </head>
+  <body>
+    <h1 class="text-3xl font-bold text-stripe1 text-center my-4">Essais Stripe</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-32 max-w-7xl mx-auto">
+      <div class="border rounded-xl border-stripe1 p-4">
+        <h2 class="text-xl font-bold text-stripe1">Le client paie avec sa carte</h2>
+        <p class="font-bold"><%= customer.name %></p>
+        <p class="font-italic"><%= customer.id %></p>
+        <p>Balance : <%= customer.balance %></p>
+        <form action="/charge" method="POST" id="form1">
+          <label for="amount"  class="font-bold text-stripe1/50 mt-6 mb-3 block">Montant à envoyer ($)</label>
+          <input type="number" name="amount" value="5"  class="mb-6" />
+          <div id="payment-card1"  class="mb-6"></div>
+          <div id="payment-errors-1"  class="mb-6"></div>
+          <button class="p-2 bg-stripe1 text-white rounded-xl text-center">Il paie</button>
+        </form>
+      </div>
+      <div class="border rounded-xl border-stripe1 p-4">
+        <h2 class="text-xl font-bold text-stripe1">Un nouveau client paie avec sa carte</h2>
+        <form action="/charge-new-customer" method="POST"  id="form2">
+          <label for="email" class="font-bold text-stripe1/50 mt-6 mb-3 block">Email:</label>
+          <input type="email" name="email" placeholder="Email" class="mb-6" />
+          <label for="amount"  class="font-bold text-stripe1/50 mt-6 mb-3 block">Montant à envoyer ($)</label>
+          <input type="number" name="amount" value="5"  class="mb-6" />
+          <div id="payment-card2"  class="mb-6"></div>
+          <div id="payment-errors-2"  class="mb-6"></div>
+          <button class="p-2 bg-stripe1 text-white rounded-xl text-center">On crée son compte et ensuite il paie</button>
+        </form>
+      </div>
+    </div>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+          const stripe = Stripe('pk_test_51LqC9vJmZ3USYKbx4ftxn0PLufcv4v7dAeSw9NBCN5cSfw2xCKaRQppVmyl558dUnR2iXAYtL8hGVsn6cd5RhprX00f0PPTzBz'); 
+          const elements = stripe.elements();
+
+          const card1 = elements.create("card", { hidePostalCode: true });
+          card1.mount("#payment-card1");
+          const form1 = document.querySelector("#form1");
+          const errors1 = document.querySelector("#payment-errors-1");
+          const card2 = elements.create("card", { hidePostalCode: true });
+          card2.mount("#payment-card2");
+          const form2 = document.querySelector("#form2");
+          const errors2 = document.querySelector("#payment-errors-2");
+
+          form1.addEventListener("submit", (event) => {
+            event.preventDefault();
+            stripe.createToken(card1).then((res) => {
+              if (res.error) {
+                errors.textContent = res.error.message;
+              } else {
+                const stripeToken = document.createElement("input");
+                stripeToken.setAttribute("type", "hidden");
+                stripeToken.setAttribute("name", "stripeToken");
+                stripeToken.setAttribute("value", res.token.id);
+                form.appendChild(stripeToken);
+                form.submit();
+              }
+            });
+          });
+
+          form2.addEventListener("submit", (event) => {
+            event.preventDefault();
+            stripe.createToken(card2).then((res) => {
+              if (res.error) {
+                errors.textContent = res.error.message;
+              } else {
+                const stripeToken = document.createElement("input");
+                stripeToken.setAttribute("type", "hidden");
+                stripeToken.setAttribute("name", "stripeToken");
+                stripeToken.setAttribute("value", res.token.id);
+                form.appendChild(stripeToken);
+                form.submit();
+              }
+            });
+          });
+
+
+    </script>
+  </body>
+</html>
