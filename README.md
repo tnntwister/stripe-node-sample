@@ -1,18 +1,22 @@
 # stripe-node-sample
 
-## how to use 
+## how to use
 
-1. replace stripe key placeholders with good ones
+1. create a .env file for your stripe test keys
 
-hint : search 'stripe(' in javascript 
+```
+STRIPE_TEST_PK="pk_test_xxx"
+STRIPE_TEST_SK="sk_test_xxx"
+STRIPE_CUSTOMER_ID="cus_xxx"
+```
 
-2. install npm dependancies 
+2. install npm dependancies
 
 ```
 npm install
 ```
 
-3. launch project 
+3. launch project
 
 ```
 nodemon index.js
