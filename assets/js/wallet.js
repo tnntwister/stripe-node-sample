@@ -1,4 +1,4 @@
-const stripe = Stripe('pk_test_xxxxxxxx'); 
+const stripe = Stripe('pk_test_51LqC9vJmZ3USYKbx4ftxn0PLufcv4v7dAeSw9NBCN5cSfw2xCKaRQppVmyl558dUnR2iXAYtL8hGVsn6cd5RhprX00f0PPTzBz'); 
 const elements = stripe.elements();
 const card = elements.create("card", { hidePostalCode: true });
 card.mount("#payment-card");
