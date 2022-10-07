@@ -27,3 +27,7 @@ nodemon index.js
 go to [http://localhost:3000/](http://localhost:3000/)
 
 ## Routes
+
+-   /pay-with-existing-customer
+-   /create-new-customer-and-pay
+-   /list-all-intents
