@@ -70,21 +70,10 @@ app.get("/pay-with-existing-customer", function (req, res) {
         stripe.customers
             .retrieve("cus_MZLTGUfhjfpBAS")
             .then((response) =>
-                res.render("index.html", { customer: response })
-            )
-            .catch((err) => console.log(err));
-    } catch (err) {
-        res.send(err);
-    }
-});
-
-app.get("/pay-with-existing-customer", function (req, res) {
-    let customer = {};
-    try {
-        stripe.customers
-            .retrieve("cus_MZLTGUfhjfpBAS")
-            .then((response) =>
-                res.render("index.html", { customer: response })
+                res.render("pay-with-existing-customer.html", {
+                    customer: response,
+                    stripePkKey: process.env.STRIPE_TEST_PK,
+                })
             )
             .catch((err) => console.log(err));
     } catch (err) {
@@ -98,7 +87,10 @@ app.get("/create-new-customer-and-pay", function (req, res) {
         stripe.customers
             .retrieve("cus_MZLTGUfhjfpBAS")
             .then((response) =>
-                res.render("index.html", { customer: response })
+                res.render("create-new-customer-and-pay.html", {
+                    customer: response,
+                    stripePkKey: process.env.STRIPE_TEST_PK,
+                })
             )
             .catch((err) => console.log(err));
     } catch (err) {

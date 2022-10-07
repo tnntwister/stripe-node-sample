@@ -1,14 +1,16 @@
-require("dotenv").config();
+// require("dotenv").config();
+import * as dotenv from "dotenv"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+dotenv.config();
 
 const stripe = Stripe(process.env.STRIPE_TEST_PK);
 const elements = stripe.elements();
 
 const card = elements.create("card", { hidePostalCode: true });
 card.mount("#payment-card");
-const form1 = document.querySelector("#form");
-const errors1 = document.querySelector("#payment-errors");
+const form = document.querySelector("form");
+const errors = document.querySelector("#payment-errors");
 
-form1.addEventListener("submit", (event) => {
+form.addEventListener("submit", (event) => {
     event.preventDefault();
     stripe.createToken(card).then((res) => {
         if (res.error) {

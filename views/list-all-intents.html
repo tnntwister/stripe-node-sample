@@ -19,17 +19,29 @@
     </head>
     <body>
         <h1 class="text-3xl font-bold text-stripe1 text-center my-4">
-            Essais Stripe
+            Liste des intentions de paiement
         </h1>
         <div
             class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-32 max-w-7xl mx-auto"
         >
+            <% for(var i=0; i < intents.data.length; i++) { %>
             <div class="border rounded-xl border-stripe1 p-4">
-                <h2 class="text-xl font-bold text-stripe1">
-                    Liste des intentions de paiement
-                </h2>
-                <p class="font-bold"><%= JSON.stringify(intents) %></p>
+                <ul>
+                    <li>id : <%= intents.data[i].id %></li>
+                    <li>Amount : <%= intents.data[i].amount %></li>
+                    <li>
+                        Capturable amount : <%=
+                        intents.data[i].amount_capturable %>
+                    </li>
+                    <li>
+                        Received amount : <%= intents.data[i].amount_received %>
+                    </li>
+                    <li>
+                        Charges : <%= JSON.stringify(intents.data[i].charges) %>
+                    </li>
+                </ul>
             </div>
+            <% } %>
         </div>
     </body>
 </html>
